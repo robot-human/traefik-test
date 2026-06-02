@@ -16,7 +16,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    envoronment:
+    environment:
       - TRAEFIK_DASHBOARD_CREDENTIALS: ${TRAEFIK_DASHBOARD_CREDENTIALS}
       - API_EMAIL: rdrgz.zrz.pdr@gmail.com
       - DNS_API_TOKEN_FILE: /run/secrets/cf_token
