@@ -1,6 +1,6 @@
 secrets:
   cf-token: 
-  file: ./cf-token
+    file: ./cf-token
 services:
   traefik:
     image: traefik:latest
