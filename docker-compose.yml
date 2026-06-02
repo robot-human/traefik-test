@@ -59,10 +59,10 @@ services:
       - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json" # Path inside container volume
       - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
 
-      # - "--certificatesresolvers.le.acme.dnschallenge.provider=your-dns-provider" # Needs provider setup
+      - "--certificatesresolvers.le.acme.dnschallenge.provider=hostinguer" # Needs provider setup
 
       # Optionally make 'le' the default resolver for TLS-enabled routers
-      - "--entrypoints.websecure.http.tls.certresolver=le"
+      #- "--entrypoints.websecure.http.tls.certresolver=le"
 
   # Traefik Dynamic configuration via Docker labels
     labels:
