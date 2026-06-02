@@ -92,8 +92,8 @@ services:
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls=true"
       - "traefik.http.routers.myapp.tls.certresolver=myresolver"
-      - "traefik.http.routers.myapp.tls.domain[0].main=paninimania.cloud"
-      - "traefik.http.routers.myapp.tls.domain[0].sans=*.paninimania.cloud"
+      #- "traefik.http.routers.myapp.tls.domain[0].main=paninimania.cloud"
+      #- "traefik.http.routers.myapp.tls.domain[0].sans=*.paninimania.cloud"
       #- "certificatesresolvers.myresolver.acme.httpchallenge.entrypoint"
 networks:
   proxy:
