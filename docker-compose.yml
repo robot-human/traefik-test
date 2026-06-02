@@ -1,23 +1,29 @@
 secrets:
-  cf-token: ./hostinguer-token
+  cf-token: ./cf-token
 services:
   traefik:
-    image: traefik:v3.7
+    image: traefik:latest
     container_name: traefik
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-
+    secrets:
+      - cf-token  
+    env_file:
+      - .env
     networks:
-     # Connect to the 'traefik_proxy' overlay network for inter-container communication across nodes
       - proxy
-
     ports:
       - "80:80"
       - "443:443"
-
+    envoronment:
+      - TRAEFIK_DASHBOARD_CREDENTIALS: ${TRAEFIK_DASHBOARD_CREDENTIALS}
+      - API_EMAIL: rdrgz.zrz.pdr@gmail.com
+      - DNS_API_TOKEN_FILE: /run/secrets/cf_token
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik:/traefik
       - ./certs:/certs:ro
       - ./dynamic:/dynamic:ro
       - ./letsencrypt:/letsencrypt
@@ -86,7 +92,10 @@ services:
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls=true"
       - "traefik.http.routers.myapp.tls.certresolver=myresolver"
+      - "traefik.http.routers.myapp.tls.domain[0].main=paninimania.cloud"
+      - "traefik.http.routers.myapp.tls.domain[0].sans=*.paninimania.cloud"
       #- "certificatesresolvers.myresolver.acme.httpchallenge.entrypoint"
 networks:
   proxy:
     name: proxy
+    external: true
