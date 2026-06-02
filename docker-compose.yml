@@ -1,3 +1,5 @@
+secrets:
+  cf-token: ./hostinguer-token
 services:
   traefik:
     image: traefik:v3.7
@@ -80,7 +82,7 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
+      - "traefik.http.routers.whoami.rule=Host(`paninimani.cloud`)"
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls=true"
       - "traefik.http.routers.myapp.tls.certresolver=myresolver"
