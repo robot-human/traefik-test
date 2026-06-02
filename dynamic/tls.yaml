@@ -4,8 +4,8 @@ tls:
   domains:
     - main: "example.com"
       sans:
-        - "www.paninimani.cloud"
-        - "api.paninimani.cloud"
+        - "www.paninimania.cloud"
+        - "api.paninimania.cloud"
   certificates:
     - certFile: /certs/local.crt
       keyFile:  /certs/local.key
