@@ -1,0 +1,11 @@
+tls:
+  certResolver: "letsencrypt"
+  options: "modern-tls"
+  domains:
+    - main: "example.com"
+      sans:
+        - "www.paninimani.cloud"
+        - "api.paninimani.cloud"
+  certificates:
+    - certFile: /certs/local.crt
+      keyFile:  /certs/local.key
