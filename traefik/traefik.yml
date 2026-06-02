@@ -1,3 +1,6 @@
+api:
+  dashboard: true
+  insecure: true
 entryPoints:
   web:
     address: ":80"
@@ -6,6 +9,7 @@ entryPoints:
         entryPoint:
           to: websecure
           scheme: https
+          permanent: true
   websecure:
     address: ":443"
     http:
@@ -15,15 +19,29 @@ providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
+    network: traefik
   file:
     filename: /config.yml
 certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: rdrgz.zrz.pdr@gmail.com
+      storage: /etc/traefik/acme.json
+      tlsChallenge: {}
+      caServer: https://acme-v02.api.letsencrypt.org/directory
+  letsencrypt-staging:
+    acme:
+      email: rdrgz.zrz.pdr@gmail.com
+      storage: /etc/traefik/acme-staging
+      tlsChallenge: {}
+      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
   myresolver:
     acme:
       #caServer: https://acme-v02.api.letsencrypt.org/directory
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory
       email: rdrgz.zrz.pdr@gmail.com
       storage: acme.json
+      storage: /etc/traefik/acme.json
       dnsChallenge:
         provider: hostinguer
         # used during the challenge

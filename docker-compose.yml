@@ -1,12 +1,13 @@
 secrets:
-  cf-token: ./cf-token
+  cf-token: 
+  file: ./cf-token
 services:
   traefik:
     image: traefik:latest
     container_name: traefik
     restart: unless-stopped
     security_opt:
-      - no-new-privileges:true
+      - no-new-privileges: true
     secrets:
       - cf-token  
     env_file:
@@ -17,9 +18,9 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      - TRAEFIK_DASHBOARD_CREDENTIALS: ${TRAEFIK_DASHBOARD_CREDENTIALS}
-      - API_EMAIL: rdrgz.zrz.pdr@gmail.com
-      - DNS_API_TOKEN_FILE: /run/secrets/cf_token
+      - TRAEFIK_DASHBOARD_CREDENTIALS=${TRAEFIK_DASHBOARD_CREDENTIALS}
+      - API_EMAIL="rdrgz.zrz.pdr@gmail.com"
+      - DNS_API_TOKEN_FILE="/run/secrets/cf_token"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -98,4 +99,5 @@ services:
 networks:
   proxy:
     name: proxy
+    driver: bridge
     external: true
