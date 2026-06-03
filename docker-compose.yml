@@ -8,15 +8,37 @@ services:
     networks:
       - proxy
     command:
+      - "--api.insecure=false"
+      - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=proxy"
       - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--entryPoints.websecure.http.tls=true"
+      - "--entryPoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entryPoints.web.http.redirections.entryPoint.scheme=https"
+      # Let's Encrypt configuration
+      - "--certificatesresolvers.le.acme.email=rdrgz.zrz.pdr@gmail.com" # replace with your actual email
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
     ports:
       - "80:80"
+      - "443:443"
       - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      # Add the following volumes
+      - "./certs:/certs:ro"
+      - "./dynamic:/etc/traefik/dynamic:ro"
+      - "./letsencrypt:/letsencrypt"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard.docker.localhost`)"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      # Add the following label
+      - "traefik.http.routers.dashboard.tls=true"
 
   whoami:
     image: "traefik/whoami"
@@ -25,8 +47,45 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
-      - "traefik.http.routers.whoami.entrypoints=web"
+      - "traefik.http.routers.whoami.rule=Host(`paninimania.cloud`)"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      # Add the following label
+      - "traefik.http.routers.whoami.tls=true"
+  
+      # Secure Headers Middleware
+      - "traefik.http.middlewares.secure-headers.headers.frameDeny=true"
+      - "traefik.http.middlewares.secure-headers.headers.sslRedirect=true"
+      - "traefik.http.middlewares.secure-headers.headers.browserXssFilter=true"
+      - "traefik.http.middlewares.secure-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.secure-headers.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.secure-headers.headers.stsPreload=true"
+      - "traefik.http.middlewares.secure-headers.headers.stsSeconds=31536000"
+
+      # IP Allowlist Middleware
+      - "traefik.http.middlewares.ip-allowlist.ipallowlist.sourceRange=127.0.0.1/32,192.168.0.0/16,10.0.0.0/8,2.25.155.97"
+
+      # Apply middlewares to whoami router
+      - "traefik.http.routers.whoami.middlewares=secure-headers,ip-allowlist"
+
+      - "traefik.http.routers.whoami.tls.certresolver=le"
+
+  whoami-api:
+    image: "traefik/whoami"
+    container_name: "whoami-api"
+    restart: unless-stopped
+    networks:
+      - proxy
+    environment:
+      - WHOAMI_NAME=API Service
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami-api.rule=Host(`paninimania.cloud`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.whoami-api.entrypoints=websecure"
+      # Add the following label
+      - "traefik.http.routers.whoami-api.tls=true"
+
+      - "traefik.http.routers.whoami-api.middlewares=secure-headers,ip-allowlist"
+      - "traefik.http.routers.whoami-api.tls.certresolver=le"
 
 networks:
   proxy:
