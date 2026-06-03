@@ -14,7 +14,7 @@ entryPoints:
     address: ":443"
     http:
       tls:
-        certResolver: myresolver
+        certResolver: letsencrypt-staging
 providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
