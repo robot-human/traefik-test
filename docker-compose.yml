@@ -1,7 +1,9 @@
 # docker-compose.yml
 services:
   traefik:
-    image: traefik:v3.7
+    image: traefik:latest
+    container_name: traefik
+    restart: unless-stopped
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
@@ -11,7 +13,15 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - proxy
   whoami:
     image: traefik/whoami
     labels:
       - "traefik.http.routers.whoami.rule=Host(`paninimania.cloud`)"
+    networks:
+      - proxy
+networks:
+  proxy:
+    name: proxy
+    driver: bridge
