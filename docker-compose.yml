@@ -13,7 +13,7 @@ services:
     command:
       - "--api=true"
       - "--api.dashboard=true"
-    #  - "--api.insecure=false"
+      - "--api.insecure=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
     labels:
