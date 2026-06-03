@@ -36,13 +36,13 @@ services:
       - ./traefik.yml:/traefik.yml
     networks:
       - proxy
-  whoiam:
+  whoami:
     image: traefik/whoami
     container_name: whoami
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoiam.rule=Host(`paninimania.cloud`) && PathPrefix(`/whoiam`)"
+      - "traefik.http.routers.whoami.rule=Host(`paninimania.cloud`) && PathPrefix(`/whoami`)"
     networks:
       - proxy
 networks:
