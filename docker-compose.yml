@@ -28,8 +28,8 @@ services:
     #  - "traefik.http.routers.dashboard.tls=true"
 
       # Basic‑auth middleware
-      - "traefik.http.middlewares.dashboard-auth.asicauth.users=admin:$$apr1$$WRYAi2h3$$poREBMtapOOPXP5LegF/8."
-      - "traefik.http.routers.dashboard.middlewares=dashboard-auth@docker"
+      #- "traefik.http.middlewares.dashboard-auth.asicauth.users=admin:$$apr1$$WRYAi2h3$$poREBMtapOOPXP5LegF/8."
+      #- "traefik.http.routers.dashboard.middlewares=dashboard-auth@docker"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock
