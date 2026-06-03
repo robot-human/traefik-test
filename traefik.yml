@@ -44,7 +44,7 @@ certificatesResolvers:
       #caServer: https://acme-v02.api.letsencrypt.org/directory
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory
       email: rdrgz.zrz.pdr@gmail.com
-      storage: acme.json
+      #storage: acme.json
       storage: /etc/traefik/acme.json
       dnsChallenge:
         provider: hostinguer
