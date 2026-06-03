@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`paninimania.cloud`)"
+      - "traefik.http.routers.whoami.rule=Host(`paninimania.cloud`) && PathPrefix(`/`)"
     networks:
       - proxy
 networks:
