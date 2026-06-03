@@ -2,7 +2,7 @@ api:
   dashboard: true
   insecure: true
 entryPoints:
-  web:
+  http:
     address: ":80"
 providers:
   docker:
