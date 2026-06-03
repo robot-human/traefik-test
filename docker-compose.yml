@@ -11,6 +11,8 @@ services:
       - TRAEFIK_DASHBOARD_CREDENTIALS=${TRAEFIK_DASHBOARD_CREDENTIALS}
       - API_EMAIL="rdrgz.zrz.pdr@gmail.com"
     command:
+      - "--api=true"
+      - "--api.dashboard=true"
     #  - "--api.insecure=false"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
