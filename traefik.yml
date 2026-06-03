@@ -1,6 +1,6 @@
 api:
   dashboard: true
-  insecure: true
+  insecure: false
 entryPoints:
   web:
     address: ":80"
@@ -19,7 +19,7 @@ providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
-    network: traefik
+    network: proxy
   file:
     filename: /config.yml
 certificatesResolvers:
