@@ -13,18 +13,22 @@ services:
     command:
       - "--api=true"
       - "--api.dashboard=true"
-      - "--api.insecure=true"
+      #- "--api.insecure=true"
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
     labels:
+      # Enable self‑routing
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host(`paninimania.cloud`) && PathPrefix(`/dashboard`)"
-      - "traefik.http.routers.dashboard.service=api@internal"
-      - "traefik.http.routers.dashboard.middlewares=auth@docker"
-      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$.2Bn/rzx$$t0tkJnqo59VBshmiTepL/."
 
-      #- "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$apr1$$WRYAi2h3$$poREBMtapOOPXP5LegF/8."
-      #- "traefik.http.routers.dashboard.middlewares=dashboard-auth@docker"
+      # Dashboard router
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard.docker.localhost`)"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.tls=true"
+
+      # Basic‑auth middleware
+      - "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$apr1$$WRYAi2h3$$poREBMtapOOPXP5LegF/8."
+      - "traefik.http.routers.dashboard.middlewares=dashboard-auth@docker"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock
