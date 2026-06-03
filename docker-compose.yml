@@ -29,8 +29,8 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       # Add the following volumes
-      - "./certs:/certs:ro"
-      - "./dynamic:/etc/traefik/dynamic:ro"
+      #- "./certs:/certs:ro"
+      #- "./dynamic:/etc/traefik/dynamic:ro"
       - "./letsencrypt:/letsencrypt"
     labels:
       - "traefik.enable=true"
