@@ -72,13 +72,13 @@ services:
 
       # Dashboard router
       - "traefik.http.routers.dashboard.rule=Host(`dashboard.docker.localhost`)"
-      - "traefik.http.routers.dashboard.entrypoints=websecure"
-      - "traefik.http.routers.dashboard.service=api@internal"
-      - "traefik.http.routers.dashboard.tls=true"
+      #- "traefik.http.routers.dashboard.entrypoints=websecure"
+      #- "traefik.http.routers.dashboard.service=api@internal"
+      #- "traefik.http.routers.dashboard.tls=true"
 
       # Basic‑auth middleware
-      - "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$apr1$$WRYAi2h3$$poREBMtapOOPXP5LegF/8."
-      - "traefik.http.routers.dashboard.middlewares=dashboard-auth@docker"
+      #- "traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$apr1$$WRYAi2h3$$poREBMtapOOPXP5LegF/8."
+      #- "traefik.http.routers.dashboard.middlewares=dashboard-auth@docker"
 
 # Whoami application
   whoami:
@@ -90,10 +90,10 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`paninimania.cloud`)"
-      - "traefik.http.routers.whoami.entrypoints=websecure"
-      - "traefik.http.routers.whoami.tls=true"
-      - "traefik.http.routers.whoami.tls.certresolver=letsencrypt-staging"
-      - "traefik.http.routers.whoami.rule=Host(`paninimania.cloud`)"
+      #- "traefik.http.routers.whoami.entrypoints=websecure"
+      #- "traefik.http.routers.whoami.tls=true"
+      #- "traefik.http.routers.whoami.tls.certresolver=letsencrypt-staging"
+      #- "traefik.http.routers.whoami.rule=Host(`paninimania.cloud`)"
       #- "traefik.http.routers.myapp.tls.domain[0].main=paninimania.cloud"
       #- "traefik.http.routers.myapp.tls.domain[0].sans=*.paninimania.cloud"
       #- "certificatesresolvers.myresolver.acme.httpchallenge.entrypoint"
@@ -101,4 +101,3 @@ networks:
   proxy:
     name: proxy
     driver: bridge
-    external: true
