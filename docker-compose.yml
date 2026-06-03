@@ -62,10 +62,10 @@ services:
       - "traefik.http.middlewares.secure-headers.headers.stsSeconds=31536000"
 
       # IP Allowlist Middleware
-      - "traefik.http.middlewares.ip-allowlist.ipallowlist.sourceRange=127.0.0.1/32,192.168.0.0/16,10.0.0.0/8,2.25.155.97,192.168.1.8"
+      #- "traefik.http.middlewares.ip-allowlist.ipallowlist.sourceRange=127.0.0.1/32,192.168.0.0/16,10.0.0.0/8,2.25.155.97,192.168.1.8"
 
       # Apply middlewares to whoami router
-      - "traefik.http.routers.whoami.middlewares=secure-headers,ip-allowlist"
+      #- "traefik.http.routers.whoami.middlewares=secure-headers,ip-allowlist"
 
       - "traefik.http.routers.whoami.tls.certresolver=le"
 
