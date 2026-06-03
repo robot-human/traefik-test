@@ -28,7 +28,7 @@ certificatesResolvers:
       email: rdrgz.zrz.pdr@gmail.com
       httpChallenge:
         entryPoint: web
-      storage: /etc/traefik/acme.json
+      storage: /traefik/acme.json
       tlsChallenge: {}
       caServer: https://acme-v02.api.letsencrypt.org/directory
   letsencrypt-staging:
@@ -36,7 +36,7 @@ certificatesResolvers:
       email: rdrgz.zrz.pdr@gmail.com
       httpChallenge:
         entryPoint: web
-      storage: /etc/traefik/acme-staging
+      storage: /traefik/acme-staging
       tlsChallenge: {}
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory
   myresolver:
@@ -44,8 +44,7 @@ certificatesResolvers:
       #caServer: https://acme-v02.api.letsencrypt.org/directory
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory
       email: rdrgz.zrz.pdr@gmail.com
-      storage: acme.json
-      storage: /etc/traefik/acme.json
+      storage: /traefik/acme.json
       dnsChallenge:
         provider: hostinguer
         # used during the challenge
