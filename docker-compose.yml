@@ -10,10 +10,10 @@ services:
     environment:
       - TRAEFIK_DASHBOARD_CREDENTIALS=${TRAEFIK_DASHBOARD_CREDENTIALS}
       - API_EMAIL="rdrgz.zrz.pdr@gmail.com"
-    #command:
+    command:
     #  - "--api.insecure=false"
-    #  - "--providers.docker=true"
-    #  - "--entrypoints.web.address=:80"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`paninimania.cloud`) && PathPrefix(`/dashboard`)"
@@ -25,13 +25,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - proxy
-  whoami:
+  whoiam:
     image: traefik/whoami
     container_name: whoami
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`paninimania.cloud`)"
+      - "traefik.http.routers.whoiam.rule=Host(`paninimania.cloud`)"
     networks:
       - proxy
 networks:
