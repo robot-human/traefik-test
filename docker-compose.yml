@@ -15,8 +15,12 @@ services:
       - "--api.dashboard=true"
       - "--api.insecure=true"
       - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
-    #labels:
+      #- "--entrypoints.web.address=:80"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`paninimania.cloud`) && PathPrefix(`/dashboard`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:$$apr1$$WRYAi2h3$$poREBMtapOOPXP5LegF/8."
     #  # Dashboard router
     #  - "traefik.http.routers.dashboard.rule=Host(`paninimania.cloud`) && PathPrefix(`/dashboard`)"
     #  - "traefik.http.routers.dashboard.entrypoints=web"
