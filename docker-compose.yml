@@ -30,7 +30,7 @@ services:
       - ./letsencrypt:/letsencrypt
 
     command:
-      - "--configFile=traefik.yml"
+      - "--configFile=/etc/traefik/traefik.yml"
       # EntryPoints
       #- "--entrypoints.web.address=:80"
       #- "--entrypoints.web.http.redirections.entrypoint.to=websecure"
