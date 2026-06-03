@@ -2,7 +2,7 @@ tls:
   certResolver: "letsencrypt"
   options: "modern-tls"
   domains:
-    - main: "example.com"
+    - main: "paninimania.cloud"
       sans:
         - "www.paninimania.cloud"
         - "api.paninimania.cloud"
