@@ -84,7 +84,7 @@ services:
       # Add the following label
       - "traefik.http.routers.whoami-api.tls=true"
 
-      - "traefik.http.routers.whoami-api.middlewares=secure-headers,ip-allowlist"
+      #- "traefik.http.routers.whoami-api.middlewares=secure-headers,ip-allowlist"
       - "traefik.http.routers.whoami-api.tls.certresolver=le"
 
 networks:
