@@ -26,12 +26,16 @@ certificatesResolvers:
   letsencrypt:
     acme:
       email: rdrgz.zrz.pdr@gmail.com
+      httpChallenge:
+        entryPoint: web
       storage: /etc/traefik/acme.json
       tlsChallenge: {}
       caServer: https://acme-v02.api.letsencrypt.org/directory
   letsencrypt-staging:
     acme:
       email: rdrgz.zrz.pdr@gmail.com
+      httpChallenge:
+        entryPoint: web
       storage: /etc/traefik/acme-staging
       tlsChallenge: {}
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory
